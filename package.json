@@ -1,0 +1,25 @@
+{
+  "name": "nasa-search",
+  "version": "1.0.0",
+  "description": "backend for nasa-search",
+  "main": "search.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobg1/NasaSearch.git"
+  },
+  "keywords": [
+    "Space"
+  ],
+  "author": "Jacob Greenwald",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacobg1/NasaSearch/issues"
+  },
+  "homepage": "https://github.com/jacobg1/NasaSearch#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
