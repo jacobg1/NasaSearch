@@ -1,8 +1,15 @@
-const express = require('express');
-const app = express();
+const express = require('express'),
+      app = express(),
+      axios = require('axios');
+
+var port = 3001;
 
 app.get('/', function (req, res) {
     res.send('Hello World')
 })
 
-app.listen(3001, () => console.log('listening on port 3001! :):)'));
+app.get('/search/:query', function (req, res) {
+    res.send(req.params);
+})
+
+app.listen(port, () => console.log(`listening on port ${port} with ${axios}! :):)`));
