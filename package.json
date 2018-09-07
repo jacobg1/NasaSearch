@@ -4,7 +4,8 @@
   "description": "backend for nasa-search",
   "main": "search.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "nodemon search.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/jacobg1/NasaSearch#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "nodemon": "^1.18.4"
   }
 }
