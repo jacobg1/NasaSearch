@@ -1,13 +1,11 @@
 const express = require('express'),
-      app = express(),
+      router = express.Router(),
       axios = require('axios');
 
-var port = 3001,
-    url = 'https://images-api.nasa.gov/search';
-
+var url = 'https://images-api.nasa.gov/search';
 
 //create search endpoint
-app.get('/search/:query/:description?', function (req, res) {
+router.get('/search/:query/:description?', function (req, res) {
 
     //create empty array to push in restructured data
     var dataArray = [];
@@ -48,4 +46,4 @@ app.get('/search/:query/:description?', function (req, res) {
 
 })
 
-app.listen(port, () => console.log(`listening on port ${port}! :):)`));
+module.exports = router
