@@ -2,24 +2,18 @@ const express = require('express'),
       app = express(),
       axios = require('axios');
 
-var port = 3001;
-var url = 'https://images-api.nasa.gov/search?q=apollo%2011&description=moon%20landing&media_type=image',
-    url2 = 'https://images-api.nasa.gov/search';
-app.get('/', function (req, res) {
+var port = 3001,
+    url = 'https://images-api.nasa.gov/search';
 
 
-    axios.get(url)
-      .then(function (response) {
-        res.send(response.data);
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-})
+//create search endpoint
+app.get('/search/:query/:description?', function (req, res) {
 
-app.get('/search/:query/:description', function (req, res) {
-    console.log(req.params.description);
-    axios.get(url2, {
+    //create empty array to push in restructured data
+    var dataArray = [];
+
+    //make GET request with params that will come from user input
+    axios.get(url, {
         params: {
             q: req.params.query,
             description: req.params.description,
@@ -27,11 +21,31 @@ app.get('/search/:query/:description', function (req, res) {
         }
     })
       .then(function (response) {
-        res.send(response.data);
+
+        //begin restructure of data, this will make data easier to manipulate in front end
+        //loop through response
+        response.data.collection.items.forEach(element => {
+
+            //combine top level arrays, one holds the image link, the other holds the rest of the data
+            var combinedArrays = element.links.concat(element.data);
+
+            //each item now contains two objects, merge these two objects into a single object
+            var mergedObjects = {...combinedArrays[0], ...combinedArrays[1]}
+
+                //push each object into main array, this will be sent to front end
+                dataArray.push(mergedObjects);
+
+        })
+
+        //send the data, which is now an array of objects, each object is a single item
+        res.send(dataArray)
       })
       .catch(function (error) {
+
+          //handle error, with any luck there won't be any :)
           console.log(error);
       });
+
 })
 
 app.listen(port, () => console.log(`listening on port ${port}! :):)`));
