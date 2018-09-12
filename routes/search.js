@@ -15,7 +15,7 @@ router.get('/search/:query/:description?', function (req, res) {
         params: {
             q: req.params.query,
             description: req.params.description,
-            media_type: 'image'
+            media_type: 'image' //TODO: video search
         }
     })
       .then(function (response) {
