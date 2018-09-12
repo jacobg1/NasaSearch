@@ -36,7 +36,7 @@ router.get('/search/:query/:description?', function (req, res) {
         })
 
         //send the data, which is now an array of objects, each object is a single item
-        res.send(dataArray)
+        res.json(dataArray)
       })
       .catch(function (error) {
 
