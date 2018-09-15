@@ -33,7 +33,7 @@ router.get('/search/:query/:description?', function (req, res) {
             // push each object into main array, this will be sent to front end
             dataArray.push(mergedObjects)
         })
-
+        
         // send the data, which is now an array of objects, each object is a single item
         res.json(dataArray)
 
