@@ -1,12 +1,13 @@
 const express = require('express'),
       app = express(), 
-      config = require('config');
+      config = require('config')
 
-    var search = require('./routes/search'),
-    port = config.get('nasaSearch.setPort.port');
+  var search = require('./routes/search'),
+      // set port based on environment
+      port = config.get('nasaSearch.setPort.port')
 
-// CORS middleware
-var allowCrossDomain = function (req, res, next) {
+  // CORS middleware
+  var allowCrossDomain = function (req, res, next) {
 
     // Allowing all for now, change in prod
     res.header('Access-Control-Allow-Origin', '*');
@@ -14,8 +15,9 @@ var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
 
     next();
-}
-    app.use(allowCrossDomain);
-    app.use(search);
+  }
+    // tells app to use the route and middleware that I defined
+    app.use(allowCrossDomain)
+    app.use(search)
 
-app.listen(port, () => console.log(`listening on port ${port}! :):)`));
+app.listen(port, () => console.log(`listening on port ${port}! :):)`))
