@@ -10,6 +10,17 @@ router.get('/search/:query/:description?', function (req, res) {
     // create empty array to push in restructured data
     var dataArray = []
 
+    // removes duplicate items from array based on object key
+    // first argument is the array to check, second argument 
+    // is the object key to compare
+    function uniq(a, param) {
+        return a.filter(function (item, pos, array) {
+            return array.map(function (mapItem) {
+                return mapItem[param];
+            }).indexOf(item[param]) === pos;
+        })
+    }
+
     // make GET request with params that will come from user input
     axios.get(url, {
         params: {
@@ -33,9 +44,10 @@ router.get('/search/:query/:description?', function (req, res) {
             // push each object into main array, this will be sent to front end
             dataArray.push(mergedObjects)
         })
-        
+       
         // send the data, which is now an array of objects, each object is a single item
-        res.json(dataArray)
+        // call uniq function to remove items that have the same title
+        res.json(uniq(dataArray, 'title'))
 
       })
       .catch(function (error) {
