@@ -16,7 +16,7 @@ router.get('/search/:query/:description?', function (req, res) {
     function uniq(a, param) {
         return a.filter(function (item, pos, array) {
             return array.map(function (mapItem) {
-                return mapItem[param];
+                return mapItem[param]
             }).indexOf(item[param]) === pos;
         })
     }
@@ -44,10 +44,33 @@ router.get('/search/:query/:description?', function (req, res) {
             // push each object into main array, this will be sent to front end
             dataArray.push(mergedObjects)
         })
-       
-        // send the data, which is now an array of objects, each object is a single item
-        // call uniq function to remove items that have the same title
-        res.json(uniq(dataArray, 'title'))
+
+            // some of the keyword arrays are a single string separated by , or ;
+            // let's turn these into an array and merge it back into the keywords array
+            dataArray.forEach(element => {
+
+              // check if item has keywords and if is single string with ; as a separator 
+              if(element.keywords && element.keywords[0].indexOf(';') > -1) {
+                
+                // split the string at ; and flatten
+                element.keywords[0] = element.keywords[0].split(';')
+                element.keywords = [].concat.apply([],element.keywords[0])
+
+              } 
+
+              // do the same for keywords that are separated by ,
+              else if (element.keywords && element.keywords[0].indexOf(',') > -1) {
+                 
+                element.keywords[0] = element.keywords[0].split(',')
+                element.keywords = [].concat.apply([], element.keywords[0])
+              
+              }
+            
+            });
+
+            // send the data, which is now an array of objects, each object is a single item
+            // call uniq function to remove items that have the same title
+            res.json(uniq(dataArray, 'title'))
 
       })
       .catch(function (error) {
