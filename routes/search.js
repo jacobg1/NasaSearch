@@ -65,8 +65,26 @@ router.get('/search/:query/:description?', function (req, res) {
                 element.keywords = [].concat.apply([], element.keywords[0])
               
               }
-            
+
+              // only run the following if keywords exist on data to prevent errors
+              if(element.keywords) {
+              
+                // add comma after all keywords except last in array
+                element.keywords.forEach(function(keyword, index) {
+
+                  if(index !== element.keywords.length - 1) {
+                      element.keywords[index] = keyword + ', '
+                  }
+
+                })
+
+                // join keywords into one string and make lowercase
+                element.keywords = element.keywords.join('').toLowerCase()
+              }
+
             });
+
+        
 
             // send the data, which is now an array of objects, each object is a single item
             // call uniq function to remove items that have the same title
