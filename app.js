@@ -6,7 +6,7 @@ const express = require('express'),
 
   var search = require('./routes/search'),
       // set port based on environment
-      port = 3001
+      port = process.env.PORT || 3000
 
   // CORS middleware
   var allowCrossDomain = function (req, res, next) {
