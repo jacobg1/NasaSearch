@@ -23,8 +23,13 @@
   "homepage": "https://github.com/jacobg1/NasaSearch#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "compression": "^1.7.3",
     "config": "^2.0.1",
     "express": "^4.16.3",
+    "helmet": "^3.14.0",
     "nodemon": "^1.18.4"
+  },
+  "engines": {
+    "node": "9.5.0"
   }
 }

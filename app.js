@@ -1,10 +1,12 @@
 const express = require('express'),
       app = express(), 
-      config = require('config')
+      config = require('config'),
+      compression = require('compression'),
+      helmet = require('helmet');
 
   var search = require('./routes/search'),
       // set port based on environment
-      port = config.get('nasaSearch.setPort.port')
+      port = 3001
 
   // CORS middleware
   var allowCrossDomain = function (req, res, next) {
@@ -17,6 +19,8 @@ const express = require('express'),
     next();
   }
     // tells app to use the route and middleware that I defined
+    app.use(compression());
+    app.use(helmet());
     app.use(allowCrossDomain)
     app.use(search)
 
