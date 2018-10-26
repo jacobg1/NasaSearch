@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "dev": "nodemon app.js",
-    "prod": "export NODE_ENV=production && nodemon app.js"
+    "prod": "export NODE_ENV=production && nodemon app.js",
+    "start": "node app.js" 
   },
   "repository": {
     "type": "git",
