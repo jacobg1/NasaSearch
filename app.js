@@ -5,6 +5,7 @@ const express = require('express'),
       helmet = require('helmet');
 
   var search = require('./routes/search'),
+      email = require('./routes/sendEmail')
       // set port based on environment
       port = process.env.PORT || 3000
 
@@ -22,6 +23,6 @@ const express = require('express'),
     app.use(compression());
     app.use(helmet());
     app.use(allowCrossDomain)
-    app.use(search)
+    app.use(search, email)
 
 app.listen(port, () => console.log(`listening on port ${port}! :):)`))
