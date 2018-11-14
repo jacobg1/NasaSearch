@@ -1,20 +1,49 @@
 const express = require('express'),
-      router = express.Router()
+      router = express.Router(),
+      nodemailer = require('nodemailer')
+      
 
 
-// create email endpoint for sending email through Amazon SES
-router.get('/email/:senderEmail/:senderName/:senderMessage', function (req, res) {
+// create email endpoint for sending email through NodeMailer
+router.post('/email', function (req, res) {
 
-    // a test object to hold data from params
-    let testObject = {
-        name: req.params.senderName,
-        email: req.params.senderEmail,
-        message: req.params.senderMessage
+    // create variable to hold email and SMTP options
+    let emailOptions, smtpSend
 
-    }
+    // SMTP options
+    smtpSend = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'greenwald.j8@gmail.com',
+            pass: 'Harvey1@1'
+        }
+    });
 
+    // email options
+    emailOptions = {
+        from: req.body.senderName + ' &lt;' + req.body.senderEmail + '&gt;',
+        to: 'greenwald.j8@gmail.com',
+        subject: 'Contact form message from portfolio site',
+        text: `${req.body.senderName} (${req.body.senderEmail}) says: ${req.body.senderMessage}`
+    };
+
+    // send that email!
+    smtpSend.sendMail(emailOptions, function (error, response) {
+
+        // handle errors
+        if (error) {
+            res.json(error);
+        }
+
+        // OR return response
+        else {
+            res.json(response);
+        }
+    });
     // send that email!!
-    res.json(testObject)
+    // res.json(testObject)
 })
 
 
