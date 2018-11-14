@@ -3,6 +3,10 @@ const express = require('express'),
       config = require('config'),
       compression = require('compression'),
       helmet = require('helmet');
+      bodyParser = require('body-parser')
+
+
+
 
   var search = require('./routes/search'),
       email = require('./routes/sendEmail')
@@ -20,8 +24,9 @@ const express = require('express'),
     next();
   }
     // tells app to use the route and middleware that I defined
-    app.use(compression());
-    app.use(helmet());
+    app.use(compression())
+    app.use(helmet())
+    app.use(bodyParser.json());
     app.use(allowCrossDomain)
     app.use(search, email)
 
