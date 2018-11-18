@@ -17,7 +17,7 @@ router.post('/email', function (req, res) {
         secure: true,
         auth: {
             user: 'greenwald.j8@gmail.com',
-            pass: 'Harvey1@1'
+            pass: process.env.PASS
         }
     });
 
