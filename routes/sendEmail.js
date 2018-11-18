@@ -16,8 +16,8 @@ router.post('/email', function (req, res) {
         port: 465,
         secure: true,
         auth: {
-            user: 'greenwald.j8@gmail.com',
-            pass: 'Harvey1@1'
+            user: EMAIL,
+            pass: PASSWORD
         }
     });
 
