@@ -1,37 +1,22 @@
 const express = require('express'),
-      router = express.Router(),
-      nodemailer = require('nodemailer')
-      
-
+      router = express.Router()
 
 // create email endpoint for sending email through NodeMailer
 router.post('/email', function (req, res) {
 
-    // create variable to hold email and SMTP options
-    let emailOptions, smtpSend
+    // send email with sendgrid's api
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    // SMTP options
-    smtpSend = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-            user: 'greenwald.j8@gmail.com',
-            pass: process.env.PASS
-        }
-    });
+    const msg = {
+      to: 'greenwald.j8@gmail.com',
+      from: req.body.senderEmail,
+      subject: 'Contact from portfolio site',
+      text: `${req.body.senderName} (${req.body.senderEmail}) says: ${req.body.senderMessage}`,
+      html: `<h1>${req.body.senderName}, (${req.body.senderEmail}) says:</h1><p>${req.body.senderMessage}</p>`,
+    }
 
-    // email options
-    emailOptions = {
-        from: req.body.senderName + ' &lt;' + req.body.senderEmail + '&gt;',
-        to: 'greenwald.j8@gmail.com',
-        subject: 'Contact form message from portfolio site',
-        text: `${req.body.senderName} (${req.body.senderEmail}) says: ${req.body.senderMessage}`
-    };
-
-    // send that email!
-    smtpSend.sendMail(emailOptions, function (error, response) {
-
+    sgMail.send(msg, function(error, response) {
         // handle errors
         if (error) {
             res.json(error);
@@ -42,8 +27,6 @@ router.post('/email', function (req, res) {
             res.json(response);
         }
     });
-    // send that email!!
-    // res.json(testObject)
 })
 
 
