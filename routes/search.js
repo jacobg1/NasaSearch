@@ -11,7 +11,7 @@ router.get('/search/:query/:description?', function (req, res) {
     var dataArray = []
 
     // removes duplicate items from array based on object key
-    // first argument is the array to check, second argument 
+    // first argument is the array to check, second argument
     // is the object key to compare
     function uniq(a, param) {
         return a.filter(function (item, pos, array) {
@@ -49,26 +49,26 @@ router.get('/search/:query/:description?', function (req, res) {
             // let's turn these into an array and merge it back into the keywords array
             dataArray.forEach(element => {
 
-              // check if item has keywords and if is single string with ; as a separator 
+              // check if item has keywords and if is single string with ; as a separator
               if(element.keywords && element.keywords[0].indexOf(';') > -1) {
-                
+
                 // split the string at ; and flatten
                 element.keywords[0] = element.keywords[0].split(';')
                 element.keywords = [].concat.apply([],element.keywords[0])
 
-              } 
+              }
 
               // do the same for keywords that are separated by ,
               else if (element.keywords && element.keywords[0].indexOf(',') > -1) {
-                 
+
                 element.keywords[0] = element.keywords[0].split(',')
                 element.keywords = [].concat.apply([], element.keywords[0])
-              
+
               }
 
               // only run the following if keywords exist on data to prevent errors
               if(element.keywords) {
-              
+
                 // add comma after all keywords except last in array
                 element.keywords.forEach(function(keyword, index) {
 
@@ -84,8 +84,6 @@ router.get('/search/:query/:description?', function (req, res) {
 
             });
 
-        
-
             // send the data, which is now an array of objects, each object is a single item
             // call uniq function to remove items that have the same title
             res.json(uniq(dataArray, 'title'))
@@ -93,7 +91,7 @@ router.get('/search/:query/:description?', function (req, res) {
       })
       .catch(function (error) {
 
-        // handle error, with any luck there won't be any :)
+        // handle error
         console.log(error)
 
       });
