@@ -3,3 +3,4 @@ package-lock.json
 sendgrid.env
 .env
 .serverless
+mockResponse.json
