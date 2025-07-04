@@ -25,8 +25,11 @@ function formatPaginationLinks(paginationLinks) {
       const url = new URL(curr.href);
       const searchParams = new URLSearchParams(url?.searchParams);
       const page = searchParams?.get("page");
+      const searchTerm = searchParams?.get("q");
 
-      return [...acc, { ...curr, page }];
+      if (!page || !searchTerm) return acc;
+
+      return [...acc, { ...curr, page, searchTerm }];
     } catch (err) {
       console.error(err);
       return acc;
