@@ -1,6 +1,8 @@
 node_modules/
-package-lock.json
-sendgrid.env
-.env
+
 .serverless
-mockResponse.json
+
+.env
+.env.*
+
+mocks/
