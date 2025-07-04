@@ -17,10 +17,10 @@ function formatKeywords(keywords) {
 }
 
 function formatResponse(responseData) {
-  const { items } = responseData.collection;
+  const { items = [], links: paginationLinks = [] } = responseData.collection;
 
-  const formatItems = items.reduce((acc, { data: dataArray, links }) => {
-    const imageUrl = links?.find(({ href }) => href.includes(IMAGE_SIZE))?.href;
+  const formatItems = items.reduce((acc, { data: dataArray, links: imageLinks }) => {
+    const imageUrl = imageLinks?.find(({ href }) => href.includes(IMAGE_SIZE))?.href;
     const data = dataArray?.[0];
 
     if (!imageUrl || !data) return acc;
@@ -35,7 +35,10 @@ function formatResponse(responseData) {
     ];
   }, []);
 
-  return uniqBy(formatItems, "title");
+  return {
+    items: uniqBy(formatItems, "title"),
+    paginationLinks,
+  };
 }
 
 module.exports = { formatResponse };
