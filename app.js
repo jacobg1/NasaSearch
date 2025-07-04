@@ -20,5 +20,9 @@ app.use(bodyParser.json());
 app.use(allowCrossDomain);
 app.use(search);
 
-// app.listen(port, () => console.log(`listening on port ${port}! :):)`));
+if (process.env.NODE_ENV === "local") {
+  const port = parseInt(process.env.PORT, 10);
+  app.listen(port, () => console.log(`listening on port ${port}! :):)`));
+}
+
 module.exports.handler = serverless(app);
