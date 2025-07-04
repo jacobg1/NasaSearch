@@ -1,4 +1,5 @@
 const uniqBy = require("lodash.uniqby");
+const { URL, URLSearchParams } = require("url");
 
 const IMAGE_SIZE = "medium";
 
@@ -16,8 +17,25 @@ function formatKeywords(keywords) {
   return keywords[0];
 }
 
+function formatPaginationLinks(paginationLinks) {
+  if (!paginationLinks?.length) return [];
+
+  return paginationLinks.reduce((acc, curr) => {
+    try {
+      const url = new URL(curr.href);
+      const searchParams = new URLSearchParams(url?.searchParams);
+      const page = searchParams?.get("page");
+
+      return [...acc, { ...curr, page }];
+    } catch (err) {
+      console.error(err);
+      return acc;
+    }
+  }, []);
+}
+
 function formatResponse(responseData) {
-  const { items = [], links: paginationLinks = [] } = responseData.collection;
+  const { items, links: paginationLinks } = responseData.collection;
 
   const formatItems = items.reduce((acc, { data: dataArray, links: imageLinks }) => {
     const imageUrl = imageLinks?.find(({ href }) => href.includes(IMAGE_SIZE))?.href;
@@ -37,7 +55,7 @@ function formatResponse(responseData) {
 
   return {
     items: uniqBy(formatItems, "title"),
-    paginationLinks,
+    paginationLinks: formatPaginationLinks(paginationLinks),
   };
 }
 
