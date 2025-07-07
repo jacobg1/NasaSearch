@@ -11,8 +11,20 @@ functions:
       - http: 
           path: /
           method: ANY
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+            - "Content-Type"
+            - "Cache-Control"
+            - "Expires"
+            - "Pragma"
       - http: 
           path: /{proxy+}
           method: ANY
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+            - "Content-Type"
+            - "Cache-Control"
+            - "Expires"
+            - "Pragma"
