@@ -4,9 +4,10 @@
   "description": "backend for nasa-search",
   "main": "app.js",
   "scripts": {
-    "dev": "export NODE_ENV=local PORT=3000 && nodemon app.js",
-		"deploy": "serverless deploy --stage prod-v2",
-		"deploy:legacy": "serverless deploy --stage prod",
+    "dev": "export ENV=local PORT=3000 && nodemon app.js",
+		"dev:mocks": "export ENV=mocks PORT=3000 && nodemon app.js",
+    "deploy": "serverless deploy --stage prod-v2",
+    "deploy:legacy": "serverless deploy --stage prod",
     "deploy:test": "serverless deploy --stage test",
     "prod": "export NODE_ENV=production && node app.js",
     "start": "node app.js"
@@ -34,6 +35,7 @@
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
+    "msw": "^2.10.4",
     "nodemon": "^3.1.10"
   }
 }
