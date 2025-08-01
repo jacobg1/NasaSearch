@@ -1,14 +1,6 @@
 const { setupServer } = require("msw/node");
 const { createMockHandlers } = require("./mockHandlers");
 
-function shouldStartLocalServer() {
-  return process.env.ENV === "local" || process.env.ENV === "mocks";
-}
-
-function shouldStartMockServer() {
-  return process.env.ENV === "mocks";
-}
-
 function createMockServer() {
   const server = setupServer(...createMockHandlers());
   return server;
@@ -31,8 +23,6 @@ function startLocalServer(app) {
 
 module.exports = {
   createMockServer,
-  shouldStartLocalServer,
   startLocalServer,
-  shouldStartMockServer,
   startMockServer,
 };
