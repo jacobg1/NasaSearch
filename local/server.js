@@ -1,0 +1,38 @@
+const { setupServer } = require("msw/node");
+const { createMockHandlers } = require("./mockHandlers");
+
+function shouldStartLocalServer() {
+  return process.env.ENV === "local" || process.env.ENV === "mocks";
+}
+
+function shouldStartMockServer() {
+  return process.env.ENV === "mocks";
+}
+
+function createMockServer() {
+  const server = setupServer(...createMockHandlers());
+  return server;
+}
+
+function startMockServer() {
+  const server = createMockServer();
+
+  server.listen();
+
+  server.events.on("request:start", ({ request: { method, url } }) => {
+    console.log("Request intercepted", method, url);
+  });
+}
+
+function startLocalServer(app) {
+  const port = parseInt(process.env.PORT, 10);
+  app.listen(port, () => console.log(`listening on port ${port}! :):)`));
+}
+
+module.exports = {
+  createMockServer,
+  shouldStartLocalServer,
+  startLocalServer,
+  shouldStartMockServer,
+  startMockServer,
+};
