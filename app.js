@@ -1,3 +1,5 @@
+require("./local/initializeLocalEnv")();
+
 const express = require("express");
 const app = express();
 const compression = require("compression");
@@ -7,12 +9,8 @@ const serverless = require("serverless-http");
 
 const search = require("./routes/search");
 const { validateQueryParams } = require("./middleware/validateQueryParams");
-const {
-  shouldStartLocalServer,
-  startLocalServer,
-  shouldStartMockServer,
-  startMockServer,
-} = require("./local/server");
+const { shouldStartLocalServer, shouldStartMockServer } = require("./local/util");
+const { startLocalServer, startMockServer } = require("./local/server");
 
 const allowCrossDomain = function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -21,6 +19,7 @@ const allowCrossDomain = function (req, res, next) {
 
   next();
 };
+
 app.use(compression());
 app.use(helmet());
 app.use(bodyParser.json());
