@@ -1,3 +1,5 @@
+require("./local/initializeLocalEnv")();
+
 const express = require("express");
 const app = express();
 const compression = require("compression");
@@ -7,6 +9,8 @@ const serverless = require("serverless-http");
 
 const search = require("./routes/search");
 const { validateQueryParams } = require("./middleware/validateQueryParams");
+const { shouldStartLocalServer, shouldStartMockServer } = require("./local/util");
+const { startLocalServer, startMockServer } = require("./local/server");
 
 const allowCrossDomain = function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -15,6 +19,7 @@ const allowCrossDomain = function (req, res, next) {
 
   next();
 };
+
 app.use(compression());
 app.use(helmet());
 app.use(bodyParser.json());
@@ -22,9 +27,12 @@ app.use(allowCrossDomain);
 app.use(validateQueryParams);
 app.use(search);
 
-if (process.env.NODE_ENV === "local") {
-  const port = parseInt(process.env.PORT, 10);
-  app.listen(port, () => console.log(`listening on port ${port}! :):)`));
+if (shouldStartMockServer()) {
+  startMockServer();
+}
+
+if (shouldStartLocalServer()) {
+  startLocalServer(app);
 }
 
 module.exports.handler = serverless(app);
