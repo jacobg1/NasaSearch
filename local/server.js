@@ -1,7 +1,8 @@
-const { setupServer } = require("msw/node");
 const { createMockHandlers } = require("./mockHandlers");
 
 function createMockServer() {
+  const { setupServer } = require("msw/node");
+
   const server = setupServer(...createMockHandlers());
   return server;
 }
