@@ -1,26 +1,25 @@
-function getRandomNumber(numMockImages) {
-  return Math.floor(Math.random() * numMockImages) + 1;
+const IMAGE_SIZE = "medium";
+const numMockImages = 3;
+
+function getRandomNumber(max) {
+  return Math.floor(Math.random() * max) + 1;
 }
 
-function createMockImageHref(imageSize) {
-  const localImageFolder = process.env.LOCAL_IMAGE_FOLDER;
-  const localApiUrl = `http://localhost:${process.env.PORT}`;
+function createMockImageHref() {
+  const localApiUrl = `http://localhost:${process.env.PORT}/images`;
+  const randomNumber = getRandomNumber(numMockImages);
 
-  const randomNumber = getRandomNumber(3);
-
-  return `${localApiUrl}/${localImageFolder}/${imageSize}/${randomNumber}.jpg`;
+  return `${localApiUrl}/${IMAGE_SIZE}/${randomNumber}.jpg`;
 }
 
 function formatMockImage(items) {
-  const imageSize = process.env.IMAGE_SIZE;
-
   return items.map(({ links, ...rest }) => ({
     ...rest,
     links: links.map((link) => {
-      if (link.href.includes(imageSize)) {
+      if (link.href.includes(IMAGE_SIZE)) {
         return {
           ...link,
-          href: createMockImageHref(imageSize),
+          href: createMockImageHref(IMAGE_SIZE),
         };
       }
       return link;
