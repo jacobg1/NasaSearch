@@ -21,9 +21,7 @@ function startMockServer() {
 }
 
 function serveMockImages(app) {
-  const imageFolder = process.env.LOCAL_IMAGE_FOLDER;
-
-  app.use(`/${imageFolder}`, express.static(path.join(__dirname, "mocks/images")));
+  app.use("/images", express.static(path.join(__dirname, "mocks/images")));
 }
 
 function startLocalServer(app) {
