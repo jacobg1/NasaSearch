@@ -17,6 +17,8 @@ const allowCrossDomain = function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET");
   res.header("Access-Control-Allow-Headers", "Content-Type, Cache-Control, Expires, Pragma");
 
+  if (shouldStartMockServer()) res.header("Cross-Origin-Resource-Policy", "cross-origin");
+
   next();
 };
 
