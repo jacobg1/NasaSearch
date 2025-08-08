@@ -1,3 +1,6 @@
+const express = require("express");
+const path = require("path");
+
 const { createMockHandlers } = require("./mockHandlers");
 
 function createMockServer() {
@@ -17,6 +20,10 @@ function startMockServer() {
   });
 }
 
+function serveMockImages(app) {
+  app.use("/images", express.static(path.join(__dirname, "mocks/images")));
+}
+
 function startLocalServer(app) {
   const port = parseInt(process.env.PORT, 10);
   app.listen(port, () => console.log(`listening on port ${port}! :):)`));
@@ -26,4 +33,5 @@ module.exports = {
   createMockServer,
   startLocalServer,
   startMockServer,
+  serveMockImages,
 };

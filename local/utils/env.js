@@ -6,4 +6,7 @@ function shouldStartMockServer() {
   return process.env.ENV === "mocks";
 }
 
-module.exports = { shouldStartLocalServer, shouldStartMockServer };
+module.exports = {
+  shouldStartLocalServer,
+  shouldStartMockServer,
+};
