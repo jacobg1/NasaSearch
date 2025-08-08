@@ -1,22 +1,4 @@
-const { addMockImages } = require("./util");
-
-function createPageConfig() {
-  const mockResponse = require("./mocks/mockResponse");
-  const mockResponsePageTwo = require("./mocks/mockResponsePageTwo");
-
-  const pageConfig = {
-    1: addMockImages(mockResponse),
-    2: addMockImages(mockResponsePageTwo),
-  };
-
-  return pageConfig;
-}
-
-function getMockResponse({ page, pageConfig }) {
-  // TODO - dynamic pages mocks?
-  const defaultPage = 1;
-  return pageConfig[page] ?? pageConfig[defaultPage];
-}
+const { createPageConfig, getMockResponse } = require("./utils/mockData");
 
 function createMockHandlers() {
   const { http, HttpResponse } = require("msw");

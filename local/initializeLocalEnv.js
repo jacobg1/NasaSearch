@@ -1,4 +1,4 @@
-const { shouldStartLocalServer } = require("./util");
+const { shouldStartLocalServer } = require("./utils/env");
 
 function initializeLocalEnv() {
   if (!shouldStartLocalServer()) return;

@@ -9,7 +9,7 @@ const serverless = require("serverless-http");
 const search = require("./routes/search");
 
 const { validateQueryParams } = require("./middleware/validateQueryParams");
-const { shouldStartLocalServer, shouldStartMockServer } = require("./local/util");
+const { shouldStartLocalServer, shouldStartMockServer } = require("./local/utils/env");
 const { startLocalServer, startMockServer, serveMockImages } = require("./local/server");
 
 const allowCrossDomain = function (req, res, next) {
