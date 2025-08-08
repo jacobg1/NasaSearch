@@ -6,6 +6,7 @@ provider:
   memorySize: 128
   environment:
     API_URL: ${myAwsAccount:ssm:/nasa-search/api-url}
+    NODE_ENV: production
 
 stages:
   default:
