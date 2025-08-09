@@ -9,7 +9,7 @@
     "deploy:test": "npm run build && serverless deploy --stage test",
     "build": "webpack",
     "build:watch": "webpack --watch",
-    "dev:local": "npm run build:watch & ENV=local nodemon dist/app.js",
+    "dev:local": "npm run build:watch -- --env local & ENV=local nodemon dist/app.js",
     "dev:mocks": "npm run build:watch -- --env mocks & ENV=mocks nodemon dist/app.js"
   },
   "repository": {
