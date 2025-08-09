@@ -28,7 +28,22 @@ function getIgnorePlugin(mocks) {
   ];
 }
 
-module.exports = (env) => {
+function getNodeExternals(mocks, local) {
+  const includeDev = mocks || local;
+
+  const externalsConfig = !includeDev
+    ? {
+        modulesFromFile: {
+          fileName: "./package.json",
+          includeInBundle: ["dependencies"],
+        },
+      }
+    : {};
+
+  return nodeExternals(externalsConfig);
+}
+
+module.exports = ({ mocks, local }) => {
   return {
     mode: "production",
     devtool: false,
@@ -40,13 +55,13 @@ module.exports = (env) => {
       clean: true,
     },
     externalsPresets: { node: true },
-    externals: [nodeExternals()],
+    externals: [getNodeExternals(mocks, local)],
     ignoreWarnings: [/^(?!CriticalDependenciesWarning$)/],
     optimization: {
       nodeEnv: false,
       minimize: true,
       minimizer: [new TerserPlugin()],
     },
-    plugins: [...getCopyPlugin(env.mocks), ...getIgnorePlugin(env.mocks)],
+    plugins: [...getCopyPlugin(mocks), ...getIgnorePlugin(mocks)],
   };
 };
