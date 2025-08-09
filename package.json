@@ -4,13 +4,13 @@
   "description": "backend for nasa-search",
   "main": "app.js",
   "scripts": {
-    "dev": "export ENV=local && nodemon app.js",
-    "dev:mocks": "export ENV=mocks && nodemon app.js",
-    "deploy": "serverless deploy --stage prod-v2",
-    "deploy:legacy": "serverless deploy --stage prod",
-    "deploy:test": "serverless deploy --stage test",
-    "prod": "export NODE_ENV=production && node app.js",
-    "start": "node app.js"
+    "deploy": "npm run build && serverless deploy --stage prod-v2",
+    "deploy:legacy": "npm run build && serverless deploy --stage prod",
+    "deploy:test": "npm run build && serverless deploy --stage test",
+    "build": "rm -rf ./dist && webpack",
+    "build:watch": "webpack --watch",
+    "dev:local": "npm run build:watch & ENV=local nodemon dist/app.js",
+    "dev:mocks": "npm run build:watch & ENV=mocks nodemon dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/jacobg1/NasaSearch#readme",
   "dependencies": {
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "body-parser": "^2.2.0",
-    "compression": "^1.8.0",
+    "compression": "^1.8.1",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "lodash.uniqby": "^4.7.0",
@@ -37,6 +37,10 @@
   "devDependencies": {
     "dotenv": "^17.2.1",
     "msw": "^2.10.4",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "terser-webpack-plugin": "^5.3.14",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-node-externals": "^3.0.0"
   }
 }
