@@ -1,4 +1,12 @@
 service: nasa-search
+
+package:
+  individually: true
+  patterns:
+    - "!./**"
+    - ./dist/**
+    - ./package.json
+
 provider:
   name: aws
   runtime: nodejs22.x
@@ -16,7 +24,7 @@ stages:
 
 functions:
   app:
-    handler: app/app.handler
+    handler: dist/app.handler
     events:
       - http:
           path: /
