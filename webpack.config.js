@@ -1,13 +1,29 @@
 const TerserPlugin = require("terser-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 const CopyPlugin = require("copy-webpack-plugin");
+const { IgnorePlugin } = require("webpack");
 
-function getPlugins(mocks) {
+function getCopyPlugin(mocks) {
   if (!mocks) return [];
 
   return [
     new CopyPlugin({
       patterns: [{ from: "./local/mocks/images", to: "./images" }],
+    }),
+  ];
+}
+
+function getIgnorePlugin(mocks) {
+  if (mocks) return [];
+
+  return [
+    new IgnorePlugin({
+      checkResource(resource) {
+        if (resource.includes("/mocks/")) {
+          return true;
+        }
+        return false;
+      },
     }),
   ];
 }
@@ -31,6 +47,6 @@ module.exports = (env) => {
       minimize: true,
       minimizer: [new TerserPlugin()],
     },
-    plugins: getPlugins(env.mocks),
+    plugins: [...getCopyPlugin(env.mocks), ...getIgnorePlugin(env.mocks)],
   };
 };
