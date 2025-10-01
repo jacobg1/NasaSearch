@@ -10,7 +10,12 @@ function createMockHandlers() {
       const { searchParams } = new URL(request.url);
       const page = searchParams.get("page");
 
-      return HttpResponse.json(getMockResponse({ page, pageConfig }));
+      return HttpResponse.json(
+        getMockResponse({
+          page: page || 1,
+          pageConfig,
+        })
+      );
     }),
   ];
   return handlers;
