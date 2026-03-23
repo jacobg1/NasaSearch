@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const helmet = require("helmet");
-const bodyParser = require("body-parser");
+const { json } = require("body-parser");
 const serverless = require("serverless-http");
 const search = require("./routes/search");
 
@@ -24,7 +24,7 @@ const allowCrossDomain = function (req, res, next) {
 
 app.use(compression());
 app.use(helmet());
-app.use(bodyParser.json());
+app.use(json());
 app.use(allowCrossDomain);
 app.use(validateQueryParams);
 app.use(search);
