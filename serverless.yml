@@ -9,18 +9,12 @@ package:
 
 provider:
   name: aws
-  runtime: nodejs22.x
+  runtime: nodejs20.x
   region: us-east-1
   memorySize: 128
   environment:
     API_URL: ${ssm:/nasa-search/api-url}
     NODE_ENV: production
-
-stages:
-  default:
-    resolvers:
-      myAwsAccount:
-        type: aws
 
 functions:
   app:
