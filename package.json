@@ -9,12 +9,12 @@
     "deploy:test": "npm run build && serverless deploy --stage test",
     "build": "webpack",
     "build:watch": "webpack --watch",
-		"build:local": "webpack --env local",
-		"build:mocks": "webpack --env mocks",
-		"watch:local": "webpack --watch --env local",
-		"watch:mocks": "webpack --watch --env mocks",
-		"serve:local": "ENV=local nodemon dist/app.js",
-		"serve:mocks": "ENV=mocks nodemon dist/app.js",
+    "build:local": "webpack --env local",
+    "build:mocks": "webpack --env mocks",
+    "watch:local": "webpack --watch --env local",
+    "watch:mocks": "webpack --watch --env mocks",
+    "serve:local": "ENV=local nodemon dist/app.js",
+    "serve:mocks": "ENV=mocks nodemon dist/app.js",
     "dev:local": "npm run build:local && npm run serve:local & npm run watch:local",
     "dev:mocks": "npm run build:mocks && npm run serve:mocks & npm run watch:mocks"
   },
@@ -32,22 +32,22 @@
   },
   "homepage": "https://github.com/jacobg1/NasaSearch#readme",
   "dependencies": {
-    "axios": "^1.11.0",
-    "body-parser": "^2.2.0",
+    "axios": "^1.13.6",
+    "body-parser": "^2.2.2",
     "compression": "^1.8.1",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "helmet": "^8.1.0",
     "lodash.uniqby": "^4.7.0",
-    "serverless-http": "^3.2.0"
+    "serverless-http": "^4.0.0"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^13.0.0",
-    "dotenv": "^17.2.1",
-    "msw": "^2.10.4",
-    "nodemon": "^3.1.10",
-    "terser-webpack-plugin": "^5.3.14",
-    "webpack": "^5.101.0",
-    "webpack-cli": "^6.0.1",
+    "copy-webpack-plugin": "^14.0.0",
+    "dotenv": "^17.3.1",
+    "msw": "^2.12.14",
+    "nodemon": "^3.1.14",
+    "terser-webpack-plugin": "^5.4.0",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^7.0.2",
     "webpack-node-externals": "^3.0.0"
   }
 }
