@@ -40,21 +40,27 @@ function formatPaginationLinks(paginationLinks) {
 function formatResponse(responseData) {
   const { items, links: paginationLinks } = responseData.collection;
 
-  const formatItems = items.reduce((acc, { data: dataArray, links: imageLinks }) => {
-    const imageUrl = imageLinks?.find(({ href }) => href.includes(IMAGE_SIZE))?.href;
-    const data = dataArray?.[0];
+  const formatItems = items.reduce(
+    (acc, { data: dataArray, links: imageLinks }) => {
+      const imageUrl = imageLinks?.find(({ href }) =>
+        href.includes(IMAGE_SIZE),
+      )?.href;
 
-    if (!imageUrl || !data) return acc;
+      const data = dataArray?.[0];
 
-    return [
-      ...acc,
-      {
-        ...data,
-        href: imageUrl,
-        keywords: formatKeywords(data.keywords),
-      },
-    ];
-  }, []);
+      if (!imageUrl || !data) return acc;
+
+      return [
+        ...acc,
+        {
+          ...data,
+          href: imageUrl,
+          keywords: formatKeywords(data.keywords),
+        },
+      ];
+    },
+    [],
+  );
 
   return {
     items: uniqBy(formatItems, "title"),
