@@ -4,9 +4,10 @@
   "description": "backend for nasa-search",
   "main": "app.js",
   "scripts": {
-    "deploy": "npm run build && serverless deploy --stage prod-v2",
-    "deploy:legacy": "npm run build && serverless deploy --stage prod",
-    "deploy:test": "npm run build && serverless deploy --stage test",
+    "deploy": "npm run build && STAGE=prod cdk synth && STAGE=prod cdk deploy --require-approval never",
+    "destroy": "STAGE=prod cdk destroy",
+    "deploy:test": "npm run build && STAGE=test cdk synth && STAGE=test cdk deploy --require-approval never",
+    "destroy:test": "STAGE=test cdk destroy",
     "build": "webpack",
     "build:watch": "webpack --watch",
     "build:local": "webpack --env local",
@@ -41,6 +42,9 @@
     "serverless-http": "^4.0.0"
   },
   "devDependencies": {
+    "aws-cdk": "^2.1118.0",
+    "aws-cdk-lib": "^2.248.0",
+    "constructs": "^10.6.0",
     "copy-webpack-plugin": "^14.0.0",
     "dotenv": "^17.4.1",
     "msw": "^2.13.1",
