@@ -1,10 +1,13 @@
 node_modules/
 
-.serverless
-
 .env
 .env.*
 
 local/mocks
 
 dist
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+.env
