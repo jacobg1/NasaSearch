@@ -5,6 +5,7 @@ const { SpaceSearchApiStack } = require("../lib/api-stack");
 const app = new App();
 
 const stage = process.env.STAGE;
+const event = process.env.npm_lifecycle_event;
 
 if (!stage) {
   throw new Error("Missing stage env var");
@@ -18,5 +19,13 @@ const opt = {
   },
 };
 
-new SpaceSearchBaseStack(app, `SpaceSearchBaseStack-${stage}`, opt);
-new SpaceSearchApiStack(app, `SpaceSearchApiStack-${stage}`, opt);
+const eventArray = event.split(":");
+const eventName = eventArray[eventArray.length - 1];
+
+if (eventName === "base") {
+  new SpaceSearchBaseStack(app, `SpaceSearchBaseStack-${stage}`, opt);
+} else {
+  new SpaceSearchApiStack(app, `SpaceSearchApiStack-${stage}`, opt);
+
+  // Define other stacks here if needed
+}
