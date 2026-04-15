@@ -1,5 +1,5 @@
 const { App } = require("aws-cdk-lib");
-const { SpaceSearchDeploymentStack } = require("../lib/deployment-stack");
+const { SpaceSearchBaseStack } = require("../lib/base-stack");
 const { SpaceSearchApiStack } = require("../lib/api-stack");
 
 const app = new App();
@@ -18,5 +18,5 @@ const opt = {
   },
 };
 
-new SpaceSearchDeploymentStack(app, `SpaceSearchDeploymentStack-${stage}`, opt);
+new SpaceSearchBaseStack(app, `SpaceSearchBaseStack-${stage}`, opt);
 new SpaceSearchApiStack(app, `SpaceSearchApiStack-${stage}`, opt);
