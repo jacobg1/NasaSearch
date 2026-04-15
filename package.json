@@ -6,7 +6,7 @@
   "scripts": {
     "deploy": "export STAGE=prod && npm run build && npm run deploy:base && cdk deploy --all --yes",
     "deploy:base": "cdk deploy SpaceSearchBaseStack-prod --yes",
-    "destroy": "export STAGE=prod && npm run destroy:prod:base && cdk destroy --all --yes",
+    "destroy": "export STAGE=prod && npm run destroy:base && cdk destroy --all --yes",
     "destroy:base": "cdk destroy SpaceSearchBaseStack-prod --yes",
     "deploy:test": "export STAGE=test && npm run build && npm run deploy:test:base && cdk deploy --all --yes",
     "deploy:test:base": "cdk deploy SpaceSearchBaseStack-test --yes",
