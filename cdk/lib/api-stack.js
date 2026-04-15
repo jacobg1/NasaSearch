@@ -27,8 +27,9 @@ class SpaceSearchApiStack extends Stack {
         getResourceNames(stage);
 
       const objectKey = await getSSMParamValue(objKeyParam, region);
+      console.log("objectKey", objectKey);
       const versionId = await getLatestVersionId(bucketName, objectKey, region);
-
+      console.log("versionId", versionId);
       const s3Bucket = Bucket.fromBucketName(this, bucketName, bucketName);
 
       const lambdaFn = new Function(this, functionName, {
