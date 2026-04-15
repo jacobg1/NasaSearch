@@ -38,7 +38,6 @@ function formatPaginationLinks(paginationLinks) {
 }
 
 function formatResponse(responseData) {
-  console.log("TEST :)");
   const { items, links: paginationLinks } = responseData.collection;
 
   const formatItems = items.reduce(
