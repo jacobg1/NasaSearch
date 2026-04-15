@@ -10,7 +10,7 @@ const { getResourceNames } = require("./util");
 
 const assetPath = "dist";
 
-class SpaceSearchDeploymentStack extends Stack {
+class SpaceSearchBaseStack extends Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
     const {
@@ -43,4 +43,4 @@ class SpaceSearchDeploymentStack extends Stack {
   }
 }
 
-module.exports = { SpaceSearchDeploymentStack };
+module.exports = { SpaceSearchBaseStack };
