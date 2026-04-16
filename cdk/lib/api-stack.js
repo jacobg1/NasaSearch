@@ -30,6 +30,11 @@ class SpaceSearchApiStack extends Stack {
       const versionId = await getLatestVersionId(bucketName, objectKey, region);
       const s3Bucket = Bucket.fromBucketName(this, bucketName, bucketName);
 
+      console.log("Using object key and version id: ", {
+        objectKey,
+        versionId,
+      });
+
       const lambdaFn = new Function(this, functionName, {
         functionName,
         code: S3CodeV2.fromBucketV2(s3Bucket, objectKey, {
