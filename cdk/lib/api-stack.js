@@ -35,11 +35,12 @@ class SpaceSearchApiStack extends Stack {
         code: S3CodeV2.fromBucketV2(s3Bucket, objectKey, {
           objectVersion: versionId,
         }),
-        runtime: Runtime.NODEJS_24_X,
         handler: "app.handler",
+        runtime: Runtime.NODEJS_24_X,
         timeout: Duration.seconds(29),
         environment: {
           API_URL: getSSMParam(this, apiUrl),
+          WEBSITE_URL: getSSMParam(this, apiUrl),
           NODE_ENV: "production",
         },
       });
