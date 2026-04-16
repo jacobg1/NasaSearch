@@ -9,18 +9,16 @@ const serverless = require("serverless-http");
 const search = require("./routes/search");
 
 const { validateQueryParams } = require("./middleware/validateQueryParams");
-const { shouldStartLocalServer, shouldStartMockServer } = require("./local/utils/env");
-const { startLocalServer, startMockServer, serveMockImages } = require("./local/server");
-
-const allowCrossDomain = function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Cache-Control, Expires, Pragma");
-
-  if (shouldStartMockServer()) res.header("Cross-Origin-Resource-Policy", "cross-origin");
-
-  next();
-};
+const { allowCrossDomain } = require("./middleware/crossDomain");
+const {
+  shouldStartLocalServer,
+  shouldStartMockServer,
+} = require("./local/utils/env");
+const {
+  startLocalServer,
+  startMockServer,
+  serveMockImages,
+} = require("./local/server");
 
 app.use(compression());
 app.use(helmet());
