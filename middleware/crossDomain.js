@@ -7,7 +7,7 @@ function getAllowOrigin() {
     throw new Error("Invalid origin");
   }
 
-  return process.env.WEBSITE_URL;
+  return origin;
 }
 
 function getAllowMethods() {
