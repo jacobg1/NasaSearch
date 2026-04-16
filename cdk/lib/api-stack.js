@@ -40,7 +40,7 @@ class SpaceSearchApiStack extends Stack {
         timeout: Duration.seconds(29),
         environment: {
           API_URL: getSSMParam(this, apiUrl),
-          WEBSITE_URL: getSSMParam(this, apiUrl),
+          WEBSITE_URL: getSSMParam(this, websiteUrl),
           NODE_ENV: "production",
         },
       });
